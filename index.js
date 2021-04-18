@@ -76,8 +76,17 @@ app.post('/addReview', (req, res)=>{
   })
 })
 
+
+
 app.get('/checkout', (req, res) => {
   checkoutCollection.find()
+  .toArray((err, items) => {
+    res.send(items)
+  })
+})
+
+app.get('/orderByEmail', (req, res) => {
+  checkoutCollection.find({email: req.query.email})
   .toArray((err, items) => {
     res.send(items)
   })
@@ -94,12 +103,7 @@ app.post('/checkout', (req,res)=>{
   // res.send(checkOut)
 })
 
-app.get('/checkout', (req, res) => {
-  checkoutCollection.find({email: req.query.email})
-  .toArray((err, items) => {
-    res.send(items)
-  })
-})
+
 
 
 app.get('/service/:_id',(req, res)=>{
