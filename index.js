@@ -38,7 +38,7 @@ client.connect(err => {
   })
 })
 
-app.post('/checkAdmin',(req, res)=>{
+app.post('/addAdmin',(req, res)=>{
   const email = req.body;
   // console.log('add new Service', email);
   adminCollection.insertOne(email)
@@ -48,14 +48,14 @@ app.post('/checkAdmin',(req, res)=>{
   })
 })
 
-app.get('/checkAdmin', (req, res) => {
-  const queryEmail = req.body
-  console.log(queryEmail)
-  adminCollection.find({ email: queryEmail })
-  .toArray((err, documents) => {
-  res.send(documents.length > 0)
-  })
-  })
+app.post('/isAdmin', (req, res) => {
+  const email = req.body.email;
+  console.log(email)
+  adminCollection.find({ email: email })
+      .toArray((err, admin) => {
+          res.send(admin.length > 0);
+      })
+})
 
 
 app.get('/review', (req, res)=> {
