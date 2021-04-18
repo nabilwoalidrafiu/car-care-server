@@ -112,7 +112,4 @@ app.get('/service/:_id',(req, res)=>{
 });
 
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-// sk_test_51IeXyWG303NuYA4GuGGF4zrNXpBEdmcaZl5SRDKl2KuRtsqM9D3LaPG6nepDWii6TCWNupBDexI3MKhiB6DSQXzV003iU5X6V9
+app.listen(port)
