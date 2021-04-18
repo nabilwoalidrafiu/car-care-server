@@ -28,6 +28,7 @@ client.connect(err => {
   const serviceCollection = client.db("carCare").collection("service");
   const checkoutCollection = client.db("carCare").collection("checkout");
   const reviewCollection = client.db("carCare").collection("review");
+  const adminCollection = client.db("carCare").collection("admin");
  console.log( err, 'database connected');
 
  app.get('/service', (req, res)=> {
@@ -36,6 +37,26 @@ client.connect(err => {
     res.send(items)
   })
 })
+
+app.post('/checkAdmin',(req, res)=>{
+  const email = req.body;
+  // console.log('add new Service', email);
+  adminCollection.insertOne(email)
+  .then(result=>{
+    // console.log('inserted count', adminCollection, result.insertedCount)
+    res.send(result.insertedCount > 0)
+  })
+})
+
+app.get('/checkAdmin', (req, res) => {
+  const queryEmail = req.body
+  console.log(queryEmail)
+  adminCollection.find({ email: queryEmail })
+  .toArray((err, documents) => {
+  res.send(documents.length > 0)
+  })
+  })
+
 
 app.get('/review', (req, res)=> {
   reviewCollection.find()
@@ -108,6 +129,7 @@ app.get('/service/:_id',(req, res)=>{
       // res.redirect('/')
     })
   })
+
   
 });
 
